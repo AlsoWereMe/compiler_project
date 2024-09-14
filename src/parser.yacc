@@ -17,7 +17,6 @@ extern int  yywrap();
 // your parser
 
 
-
 extern "C"{
 void yyerror(char * s)
 {
