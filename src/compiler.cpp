@@ -39,7 +39,9 @@ int main(int argc, char * argv[]) {
     // AST stream open the argv[2] oriented file.
     ASTStream.open(argv[2]);
 
+    // Call YYAC parser.
     yyparse();
+
     aroot = aA_Program(root);
     print_aA_Program(aroot, ASTStream);
 

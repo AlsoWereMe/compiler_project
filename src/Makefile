@@ -1,14 +1,26 @@
+# clang++ compiler
 CXX = clang++
+# C++17 standard
 CXXFLAGS = -std=c++17 -g
 
+# test directory
 TESTCASE_DIR := tests
+# wildcart() find all .tea files.
 TESTCASES = $(wildcard $(TESTCASE_DIR)/*.tea)
+# patsubst() replace all .tea by .ast.
 LLFILES = $(patsubst $(TESTCASE_DIR)/%.tea,$(TESTCASE_DIR)/%.ast,$(TESTCASES))
 
+# Woudn't auto delete LLFIELS
 .SECONDARY: $(LLFILES)
 
+# run all test files
 run: $(patsubst $(TESTCASE_DIR)/%.tea,$(TESTCASE_DIR)/%.ast,$(TESTCASES))
 
+# $<: .tea files
+# $@: .ast files
+# $^: all dependency
+# diff: compare .ast and .refast
+# $(word 2,$^): .refast files
 $(TESTCASE_DIR)/%.ast: $(TESTCASE_DIR)/%.tea $(TESTCASE_DIR)/%.refast compiler
 	@./compiler $< $@
 	@diff $@ $(word 2,$^)
